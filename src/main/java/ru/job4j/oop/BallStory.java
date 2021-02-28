@@ -10,6 +10,6 @@ public class BallStory {
         ball.tryRunHare(hare);
         wolf.tryEat(ball);
         ball.tryRunWolf(wolf);
-        fox.Eat(ball);
+        fox.tryEat(ball);
     }
 }
