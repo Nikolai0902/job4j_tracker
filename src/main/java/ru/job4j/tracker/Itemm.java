@@ -7,14 +7,6 @@ public class Itemm {
     public Itemm() {
     }
 
-    public Itemm(String name) {
-        this.name = name;
-    }
-
-    public int Id() {
-        return id;
-    }
-
     public Itemm(int id) {
         this.id = id;
     }
