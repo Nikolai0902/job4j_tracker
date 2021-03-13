@@ -16,6 +16,10 @@ public class Itemm {
         this.name = name;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public static void main(String[] args) {
         Itemm item = new Itemm();
     }
