@@ -16,6 +16,15 @@ public class Profession  {
         this.birthday = birthday;
     }
 
+    public Profession(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Profession(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
