@@ -15,6 +15,6 @@ public class StartUI {
         System.out.println("Текущие дата и время после форматирования: " + currentDateTimeFormat);
         Item dataTwo = new Item("Nikolai");
         System.out.println("Задание 9. toString");
-        System.out.println(dataTwo.toString());
+        System.out.println(dataTwo);
     }
 }
