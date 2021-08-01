@@ -12,19 +12,21 @@ public class Matches {
             String player = turn ? "Первый игрок" : "Второй игрок";
             System.out.println(player + " введите число от 1 до 3:");
             int matches = Integer.parseInt(input.nextLine());
-            if (matches > 3) {
+            if (matches > 3 || matches == 0) {
                 System.out.println("Введите числа от 1 до 3");
             } else {
                 turn = !turn;
                 count = count - matches;
                 System.out.println("Оставшиеся спички : " + count);
-                if (!turn) {
-                    System.out.println("Выиграл первый игрок");
-                } else {
-                    System.out.println("Выиграл второй игрок");
-                }
             }
+        }
+        if (!turn) {
+            System.out.println("Выиграл первый игрок");
+        } else {
+            System.out.println("Выиграл второй игрок");
+
         }
     }
 }
+
 
