@@ -1,9 +1,5 @@
 package ru.job4j.tracker;
 
-import com.sun.source.util.SourcePositions;
-
-import java.sql.SQLOutput;
-
 public class ExitAction implements UserAction {
     private final Output out;
 
