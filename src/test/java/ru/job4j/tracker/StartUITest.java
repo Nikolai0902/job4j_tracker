@@ -85,6 +85,7 @@ public class StartUITest {
     public void findAllAction() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("item"));
         Input in = new StubInput(
                 new String[]{"0", "1"}
         );
@@ -99,6 +100,10 @@ public class StartUITest {
                         + "0. Show all items"
                         + System.lineSeparator()
                         + "1. Exit"
+                        + System.lineSeparator()
+                        + "=== Show all items ===="
+                        + System.lineSeparator()
+                        + item
                         + System.lineSeparator()
                         + "Menu."
                         + System.lineSeparator()
