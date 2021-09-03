@@ -38,6 +38,8 @@ public class ValidateInputTest {
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("3");
         assertThat(selected, is(3));
+        int selectedTwo = input.askInt("2");
+        assertThat(selectedTwo, is(2));
     }
 
     @Test
