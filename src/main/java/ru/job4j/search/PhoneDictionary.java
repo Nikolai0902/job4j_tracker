@@ -17,12 +17,12 @@ public class PhoneDictionary {
      */
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
-        for (Person i : persons) {
-            if (i.getName().contains(key)
-                    || i.getSurname().contains(key)
-                    || i.getAddress().contains(key)
-                    || i.getPhone().contains(key)) {
-                result.add(i);
+        for (Person person : persons) {
+            if (person.getName().contains(key)
+                    || person.getSurname().contains(key)
+                    || person.getAddress().contains(key)
+                    || person.getPhone().contains(key)) {
+                result.add(person);
             }
         }
         return result;
