@@ -25,6 +25,6 @@ public class OrderConvertTest {
         orders.add(new Order("2", "Dress"));
         orders.add(new Order("1", "Test"));
         HashMap<String, Order> map = OrderConvert.process(orders);
-        assertThat(map.get("1"), is(new Order("1", "Test")));
+        assertThat(map.size(), is(2));
     }
 }
