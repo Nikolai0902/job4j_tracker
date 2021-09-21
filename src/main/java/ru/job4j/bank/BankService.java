@@ -13,12 +13,13 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account account) {
-            User user = findByPassport(passport);
-            if (users.containsValue(account)) {
-                System.out.println("Счет существует");
-            } else {
+        User user = findByPassport(passport);
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            if (!accounts.contains(account)) {
                 users.get(user).add(account);
             }
+        }
     }
 
     public User findByPassport(String passport) {
@@ -39,6 +40,7 @@ public class BankService {
             for (Account account : users.get(user)) {
                 if (account.getRequisite().equals(requisite)) {
                     rsl = account;
+                    break;
                 }
             }
         }
@@ -50,12 +52,10 @@ public class BankService {
         boolean rsl = false;
         Account srcAccount = findByRequisite(srcPassport, srcRequisite);
         Account destAccount = findByRequisite(destPassport, destRequisite);
-        if (srcAccount != null & destAccount != null) {
-            if (srcAccount.getBalance() >= amount) {
-                srcAccount.setBalance(srcAccount.getBalance() - amount);
-                destAccount.setBalance(destAccount.getBalance() + amount);
-                rsl = true;
-            }
+        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
+            srcAccount.setBalance(srcAccount.getBalance() - amount);
+            destAccount.setBalance(destAccount.getBalance() + amount);
+            rsl = true;
         }
         return rsl;
     }
