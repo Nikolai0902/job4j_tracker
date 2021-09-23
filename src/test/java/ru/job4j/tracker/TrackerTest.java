@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.*;
@@ -99,7 +98,7 @@ public class TrackerTest {
                 new Item(3, "Three"),
                 new Item(1, "First"),
                 new Item(2, "Second"));
-        Collections.sort(result, new SortByIdItem());
+        Collections.sort(result, new SortByIdItemA());
         List<Item> expected = Arrays.asList(
                 new Item(1, "First"),
                 new Item(2, "Second"),
@@ -113,7 +112,7 @@ public class TrackerTest {
                 new Item(2, "Second"),
                 new Item(1, "First"),
                 new Item(3, "Three"));
-        Collections.sort(result, new SortByIdItem().reversed());
+        Collections.sort(result, new SortByIdItemB());
         List<Item> expected = Arrays.asList(
                 new Item(3, "Three"),
                 new Item(2, "Second"),
