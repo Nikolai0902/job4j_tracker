@@ -7,7 +7,7 @@ public class College {
         student.setFio("Nikolai Buslaev");
         student.setGroup("123");
         student.setStart(new Date());
-
-        System.out.println(student.getFio() + " : " + student.getGroup() + " : " + student.getStart());
+        System.out.println(student.getFio() + " : "
+                + student.getGroup() + " : " + student.getStart());
     }
 }

@@ -7,7 +7,6 @@ public class Student {
     private String group;
     private Date start;
 
-
     public String getFio() {
         return fio;
     }
