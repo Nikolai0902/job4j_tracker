@@ -13,7 +13,7 @@ import java.util.Map;
  * 3. Добавление пользователю n банковских счетов.
  * 4. Перевод денег с одного банковского счета на другой счет.
  *  @author NIKOLAI BUSLAEV
- *  @version 1.0
+ *  @version 1.1
  */
 public class BankService {
     /**
