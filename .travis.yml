@@ -18,3 +18,9 @@ notifications:
       - kbus94@yandex.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+    env:
+
+      global:
+
+        - CODECOV_TOKEN="535611cc-14c2-410a-9b1c-bceca4760381"
