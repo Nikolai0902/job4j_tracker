@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class UsageArrayList {
     public static void main(String[] args) {
-        ArrayList names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<String>();
         names.add("Petr");
         names.add("Ivan");
-        names.add("Stepa");
+        names.add("Stepan");
         for (Object n: names) {
             System.out.println(n);
         }

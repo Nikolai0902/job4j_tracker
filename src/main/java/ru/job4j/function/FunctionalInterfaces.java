@@ -12,7 +12,7 @@ public class FunctionalInterfaces {
         BiConsumer<Integer, String> biCon = (i, j) -> map.put(i, j);
         biCon.accept(1, "one");
         biCon.accept(1, "one");
-        biCon.accept(2, "two");
+        biCon.accept(1, "one");
         biCon.accept(3, "three");
         biCon.accept(4, "four");
         biCon.accept(5, "five");
