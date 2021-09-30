@@ -26,10 +26,10 @@ public class FunctionalInterfaces {
             }
         }
         Supplier<List<String>> sup = () -> new ArrayList<>(map.values());
-        Consumer<String> con = (s) -> map.get(s);
+        Consumer<String> con = (s) -> System.out.println(s);
         Function<String, String> func = s -> s.toUpperCase();
         for (String s : sup.get()) {
-            System.out.println(func.apply(s));
+            con.accept(func.apply(s));
         }
     }
 }
