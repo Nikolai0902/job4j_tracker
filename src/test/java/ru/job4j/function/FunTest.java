@@ -28,8 +28,8 @@ public class FunTest {
     @Test
     public void whenPokFunctionThenPokResults() {
         Fun function = new Fun();
-        List<Double> result = function.diapason(11, 15, x -> x * 10);
-        List<Double> expected = Arrays.asList(110D, 120D, 130D, 140D);
+        List<Double> result = function.diapason(2, 5, x -> Math.pow(3, x));
+        List<Double> expected = Arrays.asList(9D, 27D, 81D);
         assertThat(result, is(expected));
     }
 }
