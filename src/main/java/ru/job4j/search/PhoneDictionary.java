@@ -17,10 +17,10 @@ public class PhoneDictionary {
      * @return Список подощедщих пользователей.
      */
     public ArrayList<Person> find(String key) {
-        Predicate<Person> name = (Person) -> Person.getName().contains(key);
-        Predicate<Person> surname = (Person) -> Person.getSurname().contains(key);
-        Predicate<Person> phone = (Person) -> Person.getPhone().contains(key);
-        Predicate<Person> address = (Person) -> Person.getAddress().contains(key);
+        Predicate<Person> name = (n) -> n.getName().contains(key);
+        Predicate<Person> surname = (n) -> n.getSurname().contains(key);
+        Predicate<Person> phone = (n) -> n.getPhone().contains(key);
+        Predicate<Person> address = (n) -> n.getAddress().contains(key);
         Predicate<Person> combine = name.or(surname.or(phone.or(address)));
         ArrayList<Person> result = new ArrayList<>();
         for (Person person : persons) {
