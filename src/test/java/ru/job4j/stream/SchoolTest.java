@@ -81,4 +81,16 @@ public class SchoolTest {
         expected.put("Surname3", new Student(3, "Surname3"));
         assertThat(rsl, is(expected));
     }
+
+    @Test
+    public void whenMatrixToList() {
+        Integer[][] matrix = {
+                {1, 2, 3},
+                {4, 5, 6},
+        };
+        School sc = new School();
+        List<Integer> result = sc.matrixToList(matrix);
+        List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
+        assertThat(result, is(expected));
+    }
 }

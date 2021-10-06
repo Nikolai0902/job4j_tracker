@@ -1,9 +1,11 @@
 package ru.job4j.stream;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class School {
     public List<Student> collect(List<Student> students, Predicate<Student> predict) {
@@ -23,5 +25,10 @@ public class School {
                                     return surname1;
                                 }
                         ));
+    }
+
+    public List<Integer> matrixToList(Integer[][] matrix) {
+        return Stream.of(matrix)
+                .flatMap(e ->  Arrays.asList(e).stream()).collect(Collectors.toList());
     }
 }
