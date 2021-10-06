@@ -12,8 +12,9 @@ import java.util.Map;
  * 2. Удаление пользователя из системы.
  * 3. Добавление пользователю n банковских счетов.
  * 4. Перевод денег с одного банковского счета на другой счет.
- *  @author NIKOLAI BUSLAEV
- *  @version 1.0
+ *
+ * @author NIKOLAI BUSLAEV
+ * @version 1.0
  */
 public class BankService {
     /**
@@ -24,6 +25,7 @@ public class BankService {
     /**
      * Метод добавялет в справочник пользователя.
      * Так же, создает пустой ArrayList для хранения счетов данного пользователя.
+     *
      * @param user пользователь который добавляется в справочник
      */
     public void addUser(User user) {
@@ -36,6 +38,7 @@ public class BankService {
      * Выполняется проверка, что пользователь существует.
      * Выполнется проверка, что новый аккаунт уникален.
      * Дополнительный аккаунт добавляется пользвателю.
+     *
      * @param passport номер паспорта пользователя которому принадлежит аккаунт
      * @param account  новый аккаунт пользователя
      */
@@ -54,18 +57,16 @@ public class BankService {
      * Поиск выполняется через цикл for в справочнике users.
      * Если поле паспорт соответствует аналогичному полю в справочнике,
      * то цикл останавливется.
+     *
      * @param passport номер паспорта пользователя для поиска пользователя.
      * @return возвращает пользователя или null если пользователь не найден.
      */
     public User findByPassport(String passport) {
-        User rsl = null;
-        for (User key : users.keySet()) {
-            if (key.getPassport().equals(passport)) {
-                rsl = key;
-                break;
-            }
-        }
-        return rsl;
+        return users.keySet()
+                .stream()
+                .filter(s -> s.getPassport().equals(passport))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -75,22 +76,21 @@ public class BankService {
      * Поиск выполняется через цикл for в коллекции аккаунтов пользователя.
      * Если поле реквизиты соответствует аналогичному полю в коллекции,
      * то цикл останавливется.
-     * @param passport номер паспорта пользователя для поиска аккаунта.
+     *
+     * @param passport  номер паспорта пользователя для поиска аккаунта.
      * @param requisite номер реквизитов пользователя для поиска аккаунта.
      * @return возвращает аккаунт или null если пользователь не найден.
      */
     public Account findByRequisite(String passport, String requisite) {
-        Account rsl = null;
         User user = findByPassport(passport);
         if (user != null) {
-            for (Account account : users.get(user)) {
-                if (account.getRequisite().equals(requisite)) {
-                    rsl = account;
-                    break;
-                }
-            }
+            return users.get(user)
+                    .stream()
+                    .filter(s -> s.getRequisite().equals(requisite))
+                    .findFirst()
+                    .orElse(null);
         }
-        return rsl;
+        return null;
     }
 
     /**
@@ -100,11 +100,12 @@ public class BankService {
      * Выполняется проверка, что реквизиты существуют и счет пользователя для списания
      * больше или равен сумме списания.
      * Если проверка true списание возможно.
-     * @param srcPassport номер паспорта пользователя для списания суммы.
-     * @param srcRequisite реквизиты аккаунта пользователя для списания суммы.
-     * @param destPassport номер паспорта пользователя для зачисления суммы.
+     *
+     * @param srcPassport   номер паспорта пользователя для списания суммы.
+     * @param srcRequisite  реквизиты аккаунта пользователя для списания суммы.
+     * @param destPassport  номер паспорта пользователя для зачисления суммы.
      * @param destRequisite реквизиты аккаунта пользователя для зачисления суммы.
-     * @param amount сумма списания.
+     * @param amount        сумма списания.
      * @return возвращает true если перевод прошел успешно и false, если перевод не прошел.
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
