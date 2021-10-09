@@ -26,6 +26,6 @@ public class School {
 
     public List<Integer> matrixToList(Integer[][] matrix) {
         return Stream.of(matrix)
-                .flatMap(e ->  Arrays.asList(e).stream()).collect(Collectors.toList());
+                .flatMap(Stream::of).collect(Collectors.toList());
     }
 }
