@@ -9,6 +9,16 @@ public class Auto {
     private boolean privod;
     private String box;
 
+    @Override
+    public String toString() {
+        return "Auto{" + "mark='" + mark + '\''
+                + ", model='" + model + '\''
+                + ", run=" + run + ", colour='"
+                + colour + '\'' + ", category='" + category + '\''
+                + ", privod=" + privod + ", box='"
+                + box + '\'' + '}';
+    }
+
     static class Builder {
         private String mark;
         private String model;
@@ -75,5 +85,6 @@ public class Auto {
                 .buildPrivod(true)
                 .buildBox("automatic")
                 .build();
+        System.out.println(auto);
     }
 }
