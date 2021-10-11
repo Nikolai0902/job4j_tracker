@@ -14,12 +14,12 @@ public class College {
     }
 
     public Optional<Student> findByAccount(String account) {
-        Optional<Student> rsl = Optional.empty();
-        for (Student s: students.keySet()) {
-            if (account.equals(s.getAccount())) {
-                rsl = Optional.of(s);
-                break;
-            }
+        Optional<Student> rsl = students.keySet()
+                .stream()
+                .filter(s -> account.equals(s.getAccount()))
+                .findFirst();
+        if (!rsl.isPresent()) {
+            System.out.println("Element not found.");
         }
         return rsl;
     }
@@ -28,13 +28,12 @@ public class College {
         Optional<Subject> rsl = Optional.empty();
         Optional<Student> s = findByAccount(account);
         if (s.isPresent()) {
-            Set<Subject> subjects = students.get(s.get());
-            for (Subject subj : subjects) {
-                if (name.equals(subj.getName())) {
-                    rsl = Optional.of(subj);
-                    break;
-                }
-            }
+            rsl = students.get(s.get())
+                    .stream()
+                    .filter(subj -> name.equals(subj.getName()))
+                    .findFirst();
+        } else {
+            System.out.println("Element not found.");
         }
         return rsl;
     }
