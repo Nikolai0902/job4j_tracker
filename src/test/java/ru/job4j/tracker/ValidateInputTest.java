@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class ValidateInputTest {
         Input in = new StubInput(
                 new String[]{"one", "1"}
         );
-        ValidateInput input = new ValidateInput(out, in);
+        ValidateInput input = new ValidateInput(in);
         int selected = input.askInt("1");
         assertThat(selected, is(1));
     }
@@ -28,7 +27,7 @@ public class ValidateInputTest {
         Input in = new StubInput(
                 new String[]{"1"}
         );
-        ValidateInput input = new ValidateInput(out, in);
+        ValidateInput input = new ValidateInput(in);
         int selected = input.askInt("1");
         assertThat(selected, is(1));
     }
@@ -39,7 +38,7 @@ public class ValidateInputTest {
         Input in = new StubInput(
                 new String[]{"3", "2"}
         );
-        ValidateInput input = new ValidateInput(out, in);
+        ValidateInput input = new ValidateInput(in);
         int selected = input.askInt("3");
         assertThat(selected, is(3));
         int selectedTwo = input.askInt("2");
@@ -49,7 +48,7 @@ public class ValidateInputTest {
     @Test
     public void whenMinusValidInput() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Input in = new StubInput(
                 new String[]{"-1", "0"}
         );

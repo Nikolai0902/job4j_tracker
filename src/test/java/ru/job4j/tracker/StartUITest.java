@@ -16,7 +16,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0", "Item name", "1"}
         );
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new ExitAction(output));
@@ -27,7 +27,7 @@ public class StartUITest {
     @Test
     public void whenEditItem() {
         Output output = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Replaced item"));
         /* Входные данные должны содержать ID добавленной заявки item.getId() */
@@ -46,7 +46,7 @@ public class StartUITest {
     @Test
     public void whenDeleteItem() {
         Output output = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Deleted item"));
         /* Входные данные должны содержать ID добавленной заявки item.getId() */
@@ -67,7 +67,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"0"}
         );
-        Tracker tracker = new Tracker();
+        SqlTracker tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
@@ -82,7 +82,7 @@ public class StartUITest {
     @Test
     public void findAllAction() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("item"));
         Input in = new StubInput(
                 new String[]{"0", "1"}
@@ -114,7 +114,7 @@ public class StartUITest {
     @Test
     public void findByNameAction() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("item"));
         String name = item.getName();
         Input in = new StubInput(
@@ -147,7 +147,7 @@ public class StartUITest {
     @Test
     public void findByIdAction() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("item"));
         String id = String.valueOf(item.getId());
         Input in = new StubInput(
@@ -183,7 +183,7 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[]{"7", "0"}
         );
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
