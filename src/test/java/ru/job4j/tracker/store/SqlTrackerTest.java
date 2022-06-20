@@ -17,16 +17,17 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-
 public class SqlTrackerTest {
+
     private static Connection connection;
 
     @BeforeClass
     public static void initConnection() {
-        try (InputStream in = SqlTrackerTest.class.getClassLoader().getResourceAsStream("test.properties")) {
+        try (InputStream in = SqlTrackerTest.class
+                .getClassLoader()
+                .getResourceAsStream("test.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -112,6 +113,4 @@ public class SqlTrackerTest {
         Item result = tracker.findById(second.getId());
         assertThat(result, is(second));
     }
-
-
 }
