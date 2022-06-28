@@ -31,8 +31,7 @@ public class StartUI {
                 new ConsoleInput()
         );
         Output output = new ConsoleOutput();
-        try (SqlTracker tracker = new SqlTracker()) {
-            tracker.init();
+        try (MemTracker tracker = new MemTracker()) {
             List<UserAction> actions = List.of(
                     new CreateAction(output),
                     new ShowAction(output),
@@ -40,7 +39,9 @@ public class StartUI {
                     new DeleteAction(output),
                     new FindIdAction(output),
                     new FindNameAction(output),
-                    new ExitAction(output)
+                    new ExitAction(output),
+                    new AddPFAction(output),
+                    new DeletePfAction(output)
             );
             new StartUI().init(input, tracker, actions);
         } catch (Exception e) {
