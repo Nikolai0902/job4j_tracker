@@ -31,7 +31,7 @@ public class StartUI {
                 new ConsoleInput()
         );
         Output output = new ConsoleOutput();
-        try (MemTracker tracker = new MemTracker()) {
+        try (SqlTracker tracker = new SqlTracker()) {
             List<UserAction> actions = List.of(
                     new CreateAction(output),
                     new ShowAction(output),
