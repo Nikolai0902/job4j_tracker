@@ -52,7 +52,8 @@ public class StubInputTest {
 
         String ln = System.lineSeparator();
         assertThat(out.toString(), is("=== Find item by id ====" + ln + item
-                + ln + "=== Find item by id ====" + ln + "Заявка с введенным id: " + id + " не найдена." + ln));
+                + ln + "=== Find item by id ====" + ln + "Заявка с введенным id: "
+                + id + " не найдена." + ln));
     }
 
     @Test
@@ -96,6 +97,7 @@ public class StubInputTest {
 
         String ln = System.lineSeparator();
         assertThat(out.toString(), is("=== Find items by name ====" + ln + item
-                + ln + "=== Find items by name ====" + ln + "Заявки с именем: " + nameNot + " не найдены." + ln));
+                + ln + "=== Find items by name ====" + ln + "Заявки с именем: "
+                + nameNot + " не найдены." + ln));
     }
 }
