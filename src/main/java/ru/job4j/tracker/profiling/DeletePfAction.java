@@ -1,4 +1,9 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.profiling;
+
+import ru.job4j.tracker.input.output.Input;
+import ru.job4j.tracker.input.output.Output;
+import ru.job4j.tracker.Store;
+import ru.job4j.tracker.action.UserAction;
 
 public class DeletePfAction implements UserAction {
     private final Output out;
