@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+import ru.job4j.tracker.sort.SortByIdItemA;
+import ru.job4j.tracker.sort.SortByIdItemB;
 
 import java.util.*;
 

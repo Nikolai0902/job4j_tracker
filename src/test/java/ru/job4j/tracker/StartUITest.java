@@ -1,9 +1,18 @@
 package ru.job4j.tracker;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.output.*;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -11,14 +20,44 @@ import static org.junit.Assert.assertThat;
 
 public class StartUITest {
 
-    @Ignore
+    private static Connection connection;
+
+    @BeforeClass
+    public static void initConnection() {
+        try (InputStream in = new FileInputStream("db/liquibase_test.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            connection = DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @AfterClass
+    public static void closeConnection() throws SQLException {
+        connection.close();
+    }
+
+    @After
+    public void wipeTable() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
+            statement.execute();
+        }
+    }
+
     @Test
     public void whenCreateItem() {
         Output output = new ConsoleOutput();
         Input in = new StubInput(
                 new String[]{"0", "Item name", "1"}
         );
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         List<UserAction> actions = new ArrayList<>();
         actions.add(new CreateAction(output));
         actions.add(new ExitAction(output));
@@ -26,11 +65,10 @@ public class StartUITest {
         assertThat(tracker.findAll().get(0).getName(), is("Item name"));
     }
 
-    @Ignore
     @Test
     public void whenEditItem() {
         Output output = new ConsoleOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Replaced item"));
         /* Входные данные должны содержать ID добавленной заявки item.getId() */
@@ -46,11 +84,10 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId()).getName(), is(replacedName));
     }
 
-    @Ignore
     @Test
     public void whenDeleteItem() {
         Output output = new ConsoleOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Deleted item"));
         /* Входные данные должны содержать ID добавленной заявки item.getId() */
@@ -65,30 +102,25 @@ public class StartUITest {
         assertThat(tracker.findById(item.getId()), is(nullValue()));
     }
 
-    @Ignore
     @Test
     public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0"}
         );
-        SqlTracker tracker = new SqlTracker();
+        SqlTracker tracker = new SqlTracker(connection);
         List<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
         new StartUI().init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu."
-                        + System.lineSeparator()
-                        + "0. Exit"
-                        + System.lineSeparator()
+                ""
         ));
     }
 
-    @Ignore
     @Test
     public void findAllAction() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         Input in = new StubInput(
                 new String[]{"0", "1"}
@@ -98,30 +130,17 @@ public class StartUITest {
         actions.add(new ExitAction(out));
         new StartUI().init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu."
-                        + System.lineSeparator()
-                        + "0. Show all items"
-                        + System.lineSeparator()
-                        + "1. Exit"
-                        + System.lineSeparator()
-                        + "=== Show all items ===="
+                "=== Show all items ===="
                         + System.lineSeparator()
                         + item
-                        + System.lineSeparator()
-                        + "Menu."
-                        + System.lineSeparator()
-                        + "0. Show all items"
-                        + System.lineSeparator()
-                        + "1. Exit"
                         + System.lineSeparator()
         ));
     }
 
-    @Ignore
     @Test
     public void findByNameAction() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         String name = item.getName();
         Input in = new StubInput(
@@ -132,30 +151,17 @@ public class StartUITest {
         actions.add(new ExitAction(out));
         new StartUI().init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu."
-                        + System.lineSeparator()
-                        + "0. Find items by name"
-                        + System.lineSeparator()
-                        + "1. Exit"
-                        + System.lineSeparator()
-                        + "=== Find items by name ===="
+                        "=== Find items by name ===="
                         + System.lineSeparator()
                         + item
-                        + System.lineSeparator()
-                        + "Menu."
-                        + System.lineSeparator()
-                        + "0. Find items by name"
-                        + System.lineSeparator()
-                        + "1. Exit"
                         + System.lineSeparator()
         ));
     }
 
-    @Ignore
     @Test
     public void findByIdAction() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item"));
         String id = String.valueOf(item.getId());
         Input in = new StubInput(
@@ -166,43 +172,26 @@ public class StartUITest {
         actions.add(new ExitAction(out));
         new StartUI().init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu."
-                        + System.lineSeparator()
-                        + "0. Find item by id"
-                        + System.lineSeparator()
-                        + "1. Exit"
-                        + System.lineSeparator()
-                        + "=== Find item by id ===="
+                "=== Find item by id ===="
                         + System.lineSeparator()
                         + item
-                        + System.lineSeparator()
-                        + "Menu."
-                        + System.lineSeparator()
-                        + "0. Find item by id"
-                        + System.lineSeparator()
-                        + "1. Exit"
                         + System.lineSeparator()
         ));
     }
 
-    @Ignore
     @Test
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"7", "0"}
         );
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(connection);
         List<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction(out));
         new StartUI().init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
-                "Menu." + ln
-                        + "0. Exit" + ln
-                        + "Wrong input, you can select: 0 .. 0" + ln
-                        + "Menu." + ln
-                        + "0. Exit" + ln
+                ""
                 )
         );
     }

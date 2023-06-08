@@ -1,5 +1,10 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.output.*;
+import ru.job4j.tracker.profiling.AddPFAction;
+import ru.job4j.tracker.profiling.DeletePfAction;
+
 import java.util.List;
 
 public class StartUI {
@@ -32,6 +37,7 @@ public class StartUI {
         );
         Output output = new ConsoleOutput();
         try (SqlTracker tracker = new SqlTracker()) {
+            tracker.init();
             List<UserAction> actions = List.of(
                     new CreateAction(output),
                     new ShowAction(output),
