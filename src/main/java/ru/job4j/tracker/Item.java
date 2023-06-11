@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @AllArgsConstructor - создает конструктор со вмести полями.
  * @EqualsAndHashCode – создаёт методы equals() и @hashCode().
  * onlyExplicitlyIncuded - явно указывает, какие поля использовать.
+ * @author Buslaev
  */
 @Data
 @NoArgsConstructor
