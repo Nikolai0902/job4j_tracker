@@ -1,18 +1,32 @@
 package ru.job4j.tracker;
 
+import lombok.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.time.format.DateTimeFormatter;
 
-public class Item implements Comparable<Item> {
-    private static final DateTimeFormatter FORMATTER
-            = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
-    private int id;
-    private String name;
-    private LocalDateTime created = LocalDateTime.now();
+/**
+ * Аннотация @Data - создаёт геттеры, сеттеры, конструктор, методы equals, hashCode, toString.
+ * @NoArgsConstructor - создается конструтор без параметров.
+ * @AllArgsConstructor - создает конструктор со вмести полями.
+ * @EqualsAndHashCode – создаёт методы equals() и @hashCode().
+ * onlyExplicitlyIncuded - явно указывает, какие поля использовать.
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Item {
 
-    public Item() {
-    }
+    private static final DateTimeFormatter FORMATTER
+            = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm:ss");
+
+    private int id;
+
+    @EqualsAndHashCode.Exclude
+    private String name;
+
+    @EqualsAndHashCode.Exclude
+    private LocalDateTime created = LocalDateTime.now();
 
     public Item(String name) {
         this.name = name;
@@ -23,60 +37,11 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
-    public Item(int id, String name, LocalDateTime created) {
-        this.id = id;
-        this.name = name;
-        this.created = created;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
     @Override
     public String toString() {
         return "Item{"
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", created=" + created.format(FORMATTER) + '}';
-    }
-
-    @Override
-    public int compareTo(Item one) {
-        return Integer.compare(id, one.id);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Item item = (Item) o;
-        return id == item.id && Objects.equals(name, item.name)
-                && Objects.equals(created.withNano(0), item.created.withNano(0));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, created);
     }
 }
