@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,8 +11,13 @@ import java.time.format.DateTimeFormatter;
  * @AllArgsConstructor - создает конструктор со вмести полями.
  * @EqualsAndHashCode – создаёт методы equals() и @hashCode().
  * onlyExplicitlyIncuded - явно указывает, какие поля использовать.
+ * Entity указывает, что это модель, которую можно сохранить в базу.
+ * Table указывает на таблицу.
+ *
  * @author Buslaev
  */
+@Entity
+@Table(name = "items")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +27,8 @@ public class Item {
     private static final DateTimeFormatter FORMATTER
             = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm:ss");
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @EqualsAndHashCode.Exclude

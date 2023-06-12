@@ -5,12 +5,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.SqlTracker;
-import ru.job4j.tracker.Store;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
