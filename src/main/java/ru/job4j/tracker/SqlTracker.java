@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Реализация crud методов с подключением к БД.
+ */
 public class SqlTracker implements Store, AutoCloseable {
 
     private Connection cn;

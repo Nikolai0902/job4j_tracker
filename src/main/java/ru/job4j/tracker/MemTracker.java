@@ -3,6 +3,9 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Реализация crud методов.
+ */
 public class MemTracker implements Store, AutoCloseable {
     private final List<Item> items = new ArrayList<>();
     private int ids = 1;
